@@ -57,20 +57,6 @@ namespace TransactionUploader.WebApi.Controllers
 					Status = "Failure"
 				});
 			}
-
-			//if (someNumber++ % 2 == 0)
-			//{
-			//	return await Task.FromResult( Ok(new Response { 
-			//		Status = "Success"
-			//	}));
-			//}
-			//else
-			//{
-			//	return await Task.FromResult(Ok(new Response
-			//	{
-			//		Status = "Failure"
-			//	}));
-			//}
 		}
 	}
 
