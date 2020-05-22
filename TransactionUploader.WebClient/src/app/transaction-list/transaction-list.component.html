@@ -1,9 +1,14 @@
-<div class="example-container mat-elevation-z8">
-  <!-- <mat-form-field>
-    <mat-label>Filter by Currency Code</mat-label>
-    <input matInput (keyup)="filterTransactionByCurrency($event.target.value)" placeholder="Search by Currency Code">
-  </mat-form-field> -->
+<div style="padding-top: 5px; width: 100%; display: table; padding-bottom: 20px;">
+  <div style="width: 30%; display: table-cell;">
+    <app-transaction-upload (start)="onUploadStart()" (complete)="onFileComplete()"></app-transaction-upload>
+  </div>
+  <div class="spinner-container spinner-center" style="display: table-cell; vertical-align: middle;" *ngIf="isUploadingRunning">
+    <mat-spinner></mat-spinner>Uploading transactions...
+  </div>
+</div>
 
+
+<div class="example-container mat-elevation-z8">
 
   <div class="spinner-container spinner-center" *ngIf="isLoading">
     <mat-spinner></mat-spinner>Loading transactions...
@@ -43,9 +48,12 @@
 <div style="padding-top: 5px; width: 100%; display: table;">
   <div style="width: 30%; display: table-cell;">
     <div style="display: flex; flex-direction: column;">
-      <mat-checkbox [(ngModel)]="currencyFilterIsChecked" style="padding-top: 45px; padding-left: 5px;">Filter by Currency Code</mat-checkbox>
-      <mat-checkbox [(ngModel)]="statusFilterIsChecked" style="padding-top: 45px; padding-left: 5px;">Filter by Status</mat-checkbox>
-      <mat-checkbox [(ngModel)]="dateFilterIsChecked" style="padding-top: 45px; padding-left: 5px;">Filter by DateTime Range</mat-checkbox>
+      <mat-checkbox [(ngModel)]="currencyFilterIsChecked" style="padding-top: 45px; padding-left: 5px;">Filter by
+        Currency Code</mat-checkbox>
+      <mat-checkbox [(ngModel)]="statusFilterIsChecked" style="padding-top: 45px; padding-left: 5px;">Filter by Status
+      </mat-checkbox>
+      <mat-checkbox [(ngModel)]="dateFilterIsChecked" style="padding-top: 45px; padding-left: 5px;">Filter by DateTime
+        Range</mat-checkbox>
     </div>
   </div>
   <div style="display: table-cell;">
@@ -60,7 +68,7 @@
       </mat-form-field>
     </div>
     <div [hidden]="!dateFilterIsChecked">
-      <mat-form-field> 
+      <mat-form-field>
         <input matInput [(ngModel)]="startDateFilter" [matDatepicker]="startDatepicker" placeholder="Start Date">
         <mat-datepicker-toggle matDatepickerToggleIcon matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #startDatepicker></mat-datepicker>
@@ -73,39 +81,6 @@
     </div>
   </div>
 </div>
-
-<!-- <div style="padding: 5px; width: 100%; display: table;">
-  <div style="width: 30%; display: table-cell;">
-    <mat-radio-group [(ngModel)]="selectedFilteringType" name="filterGroup"
-      style="display: flex; flex-direction: column;">
-      <mat-radio-button #currencyRb [value]="'currency'" style="padding: 5px;">Filter by Currency Code
-      </mat-radio-button>
-      <mat-radio-button #statusRb [value]="'status'" style="padding: 5px;">Filter by Status</mat-radio-button>
-      <mat-radio-button #dateTimeRangeRb [value]="'dateTimeRange'" style="padding: 5px;">Filter by DateTime Range
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
-  <div style="display: table-cell; vertical-align: middle;">
-    <mat-form-field appearance="standard" *ngIf="currencyRb.checked">
-      <input matInput [(ngModel)]="currencyFilter" placeholder="Currency">
-    </mat-form-field>
-    <mat-form-field appearance="standard" *ngIf="statusRb.checked">
-      <input matInput [(ngModel)]="statusFilter" placeholder="Status">
-    </mat-form-field>
-    <div *ngIf="dateTimeRangeRb.checked">
-      <mat-form-field>
-        <input matInput [(ngModel)]="startDateFilter" [matDatepicker]="startDatepicker" placeholder="Start Date">
-        <mat-datepicker-toggle matDatepickerToggleIcon matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #startDatepicker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="padding-5">
-        <input matInput [(ngModel)]="endDateFilter" [matDatepicker]="endDatepicker" placeholder="End Date">
-        <mat-datepicker-toggle matDatepickerToggleIcon matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #endDatepicker></mat-datepicker>
-      </mat-form-field>
-    </div>
-  </div>
-</div> -->
 
 <div style="float: right; padding-left: 30px;">
   <button mat-raised-button color="accent" (click)="search()">

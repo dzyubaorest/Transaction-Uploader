@@ -18,6 +18,7 @@ export class TransactionListComponent implements OnInit {
   }
 
   isLoading: boolean;
+  isUploadingRunning: boolean;
   currencyFilterIsChecked: boolean;
   statusFilterIsChecked: boolean;
   dateFilterIsChecked: boolean;
@@ -37,7 +38,7 @@ export class TransactionListComponent implements OnInit {
     this.currencyFilterIsChecked = false;
     this.statusFilterIsChecked = false;
     this.dateFilterIsChecked = false;
-
+    this.isUploadingRunning = false;
   }
 
   ngAfterViewInit() {
@@ -52,5 +53,13 @@ export class TransactionListComponent implements OnInit {
 
     this.transactionRepository.getTransactions(currency, status, startDate, endDate)
       .subscribe(values => this.dataSource = new MatTableDataSource(values));
+  }
+
+  onFileComplete() {
+    this.isUploadingRunning = false;
+  }
+
+  onUploadStart(){
+    this.isUploadingRunning = true;
   }
 }

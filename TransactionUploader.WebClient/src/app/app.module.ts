@@ -21,6 +21,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
@@ -44,6 +46,7 @@ import { LogListComponent } from './log-list/log-list.component';
     BrowserAnimationsModule,
     LayoutModule,
     MatToolbarModule,
+    MatSnackBarModule,
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -52,6 +55,7 @@ import { LogListComponent } from './log-list/log-list.component';
     MatListModule,
     MatPaginatorModule,
     MatInputModule,
+    MatProgressBarModule,
     MatProgressSpinnerModule,
     MatRadioModule,
     MatCheckboxModule,

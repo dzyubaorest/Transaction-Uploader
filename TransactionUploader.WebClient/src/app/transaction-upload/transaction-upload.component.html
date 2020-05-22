@@ -1,1 +1,14 @@
-<p>transaction-upload works!</p>
+<button mat-button color="primary" (click)="onClick()">
+    <mat-icon>file_upload</mat-icon>
+    {{text}}
+</button>
+<br/>
+<ul>
+    <li *ngFor="let file of files" [@fadeInOut]="file.state">
+          <mat-progress-bar [value]="file.progress"></mat-progress-bar>
+          <span id="file-label">
+          {{file.data.name}} 
+          </span>
+    </li>
+</ul>
+<input type="file" id="fileUpload" name="fileUpload" multiple="multiple" accept="{{accept}}" style="display:none;"/>

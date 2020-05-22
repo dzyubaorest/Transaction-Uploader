@@ -13,3 +13,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .padding-30 {
     padding: 30px;
 }
+
+.green-toaster {
+    background-color: green;
+    color: white;
+}
+
+.red-toaster {
+    background-color:red;
+    color: white;
+}
