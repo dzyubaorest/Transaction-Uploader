@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using TransactionUploader.Core.Contracts.Dto;
+using TransactionUploader.Core.Extensibility;
+using TransactionUploader.Core.Extensibility.Dto;
+using TransactionUploader.WebApi.Models;
 
 namespace TransactionUploader.WebApi.Controllers
 {
@@ -11,14 +15,11 @@ namespace TransactionUploader.WebApi.Controllers
 	[Route("api/transaction")]
 	public class TransactionApiController : ControllerBase
 	{
+		private readonly IFileUploader _fileUploader;
 
-		private readonly ILogger<TransactionApiController> _logger;
-
-		private static int someNumber = 1;
-
-		public TransactionApiController(ILogger<TransactionApiController> logger)
+		public TransactionApiController(IFileUploader fileUploader)
 		{
-			_logger = logger;
+			_fileUploader = fileUploader;
 		}
 
 		[HttpGet]
@@ -37,31 +38,21 @@ namespace TransactionUploader.WebApi.Controllers
 		}
 
 		[HttpPost("post-file")]
-		public async Task<IActionResult> PostFile(int someId, string someString, [FromForm] IFormFile file)
+		public async Task<IActionResult> PostFile([FromForm] IFormFile file)
 		{
-			var z = 5;
-
-			await Task.Delay(3000);
-
-			if (someNumber++ % 2 == 0)
+			await using (MemoryStream memoryStream = new MemoryStream())
 			{
-				return Ok(new Response
+				await file.CopyToAsync(memoryStream);
+				memoryStream.Seek(0, SeekOrigin.Begin);
+				OperationResult operationResult = _fileUploader.Upload(new FileDto(memoryStream, file.FileName));
+				Response response = new Response(operationResult, file.Name);
+
+				if (operationResult.Status == OperationResultStatus.Success)
 				{
-					Status = "Success"
-				});
-			}
-			else
-			{
-				return Ok(new Response
-				{
-					Status = "Failure"
-				});
+					return Ok(response);
+				}
+				return BadRequest(response);
 			}
 		}
-	}
-
-	class Response
-	{
-		public string Status { get; set; }
 	}
 }

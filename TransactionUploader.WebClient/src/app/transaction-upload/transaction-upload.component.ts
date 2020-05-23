@@ -59,10 +59,10 @@ export class TransactionUploadComponent implements OnInit {
         const file = fileUpload.files[index];
         const bytesInMb: number = 1000000;
 
-        if (file.size == 0) {
-          this.addSnackBarMessage("Upload of file: '" + file.name + "'  has failed: file must not be empty", "red-toaster", 2000);
-          continue;
-        }
+        // if (file.size == 0) {
+        //   this.addSnackBarMessage("Upload of file: '" + file.name + "'  has failed: file must not be empty", "red-toaster", 2000);
+        //   continue;
+        // }
 
         if (file.size > bytesInMb) {
           this.addSnackBarMessage("Upload of file: '" + file.name + "'  has failed: file`s size must be up to 1 mb.", "red-toaster", 2000);
@@ -114,14 +114,9 @@ export class TransactionUploadComponent implements OnInit {
       .subscribe(
         (event: any) => {
           if (event && event.hasOwnProperty('body') && event.body.hasOwnProperty('status')) {
-            let status: string = event.body.status;
-            if (status == "Success") {
-              this.addSnackBarMessage("File: '" + file.data.name + "' is uploaded.", "green-toaster");
-            } else if (status == "Failure") {
-              this.addSnackBarMessage("Upload of file: '" + file.data.name + "'  has failed.", "red-toaster");
-            } else {
-              console.log("Unknown result status");
-            }
+            let message: string = event.body.message;
+            let style: string = event.body.status == "Success" ? "green-toaster" : "red-toaster";
+            this.addSnackBarMessage(message, style);
 
             this.removeFileFromArray(file);
           }

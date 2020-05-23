@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionUploader.WebApi", "TransactionUploader.WebApi\TransactionUploader.WebApi.csproj", "{5CA0D29A-44F1-4457-9FE3-B616E1B2DAC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionUploader.WebApi", "TransactionUploader.WebApi\TransactionUploader.WebApi.csproj", "{5CA0D29A-44F1-4457-9FE3-B616E1B2DAC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionUploader.Core", "TransactionUploader.Core\TransactionUploader.Core.csproj", "{35009E30-A723-4798-B47D-7885BEDB1BE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionUploader.Core.Extensibility", "TransactionUploader.Core.Extensibility\TransactionUploader.Core.Extensibility.csproj", "{6AB28898-0951-4939-8221-47BF719C5378}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionUploader.Module", "TransactionUploader.Module\TransactionUploader.Module.csproj", "{B0BE1B96-3065-4E63-9372-7612E5BB64DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{5CA0D29A-44F1-4457-9FE3-B616E1B2DAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CA0D29A-44F1-4457-9FE3-B616E1B2DAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CA0D29A-44F1-4457-9FE3-B616E1B2DAC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35009E30-A723-4798-B47D-7885BEDB1BE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35009E30-A723-4798-B47D-7885BEDB1BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35009E30-A723-4798-B47D-7885BEDB1BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35009E30-A723-4798-B47D-7885BEDB1BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AB28898-0951-4939-8221-47BF719C5378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AB28898-0951-4939-8221-47BF719C5378}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AB28898-0951-4939-8221-47BF719C5378}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AB28898-0951-4939-8221-47BF719C5378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0BE1B96-3065-4E63-9372-7612E5BB64DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0BE1B96-3065-4E63-9372-7612E5BB64DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0BE1B96-3065-4E63-9372-7612E5BB64DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0BE1B96-3065-4E63-9372-7612E5BB64DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
