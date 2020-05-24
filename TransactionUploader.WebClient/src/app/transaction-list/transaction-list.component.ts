@@ -42,6 +42,7 @@ export class TransactionListComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.search();
   }
 
   search(): void {
