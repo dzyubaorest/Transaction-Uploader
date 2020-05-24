@@ -11,7 +11,7 @@ namespace TransactionUploader.Infrastructure.Migrations
                 name: "Transactions",
                 columns: table => new
                 {
-                    Id = table.Column<string>(maxLength: 100, nullable: false),
+                    Id = table.Column<string>(maxLength: 50, nullable: false),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
                     CurrencyCode = table.Column<string>(maxLength: 3, nullable: false),
                     Date = table.Column<DateTime>(nullable: false),

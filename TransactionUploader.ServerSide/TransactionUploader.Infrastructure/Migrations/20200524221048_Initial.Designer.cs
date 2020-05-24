@@ -10,7 +10,7 @@ using TransactionUploader.Infrastructure;
 namespace TransactionUploader.Infrastructure.Migrations
 {
     [DbContext(typeof(TransactionDbContext))]
-    [Migration("20200524012633_Initial")]
+    [Migration("20200524221048_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,8 +24,8 @@ namespace TransactionUploader.Infrastructure.Migrations
             modelBuilder.Entity("TransactionUploader.Infrastructure.Entities.Transaction", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("money");

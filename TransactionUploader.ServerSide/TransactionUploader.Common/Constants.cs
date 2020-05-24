@@ -2,6 +2,6 @@
 {
 	public class Constants
 	{
-		public const int MaxTransactionIdLength = 100;
+		public const int MaxTransactionIdLength = 50;
 	}
 }

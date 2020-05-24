@@ -22,8 +22,8 @@ namespace TransactionUploader.Infrastructure.Migrations
             modelBuilder.Entity("TransactionUploader.Infrastructure.Entities.Transaction", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("money");
