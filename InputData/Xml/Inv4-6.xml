@@ -1,0 +1,26 @@
+<Transactions>
+	<Transaction id="Inv00004">
+		<TransactionDate>2019-01-24T16:09:15</TransactionDate>
+		<PaymentDetails>
+			<Amount>10000.00</Amount>
+			<CurrencyCode>EUR</CurrencyCode>
+		</PaymentDetails>
+		<Status>Rejected</Status>
+	</Transaction>
+	<Transaction id="Inv00005">
+		<TransactionDate>2019-01-24T16:09:15</TransactionDate>
+		<PaymentDetails>
+			<Amount>10000.00</Amount>
+			<CurrencyCode>EUR</CurrencyCode>
+		</PaymentDetails>
+		<Status>Rejected</Status>
+	</Transaction>
+	<Transaction id="Inv00006">
+		<TransactionDate>2020-05-24T15:15:15</TransactionDate>
+		<PaymentDetails>
+			<Amount>45.00</Amount>
+			<CurrencyCode>UAH</CurrencyCode>
+		</PaymentDetails>
+		<Status>Done</Status>
+	</Transaction>
+</Transactions>

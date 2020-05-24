@@ -38,6 +38,11 @@ namespace TransactionUploader.Core.FileParsers
 			var transactions = new List<Transaction>();
 			foreach (TransactionParserIntermediateDto transactionFromFile in transactionsOperationResult.Data)
 			{
+				if (string.IsNullOrEmpty(transactionFromFile.Id))
+				{
+					return GetFailureResult("TransactionId is missing.");
+				}
+
 				if (transactionFromFile.Id.Length >= Constants.MaxTransactionIdLength)
 				{
 					return GetFailureResult($"TransactionId length must not be more than {Constants.MaxTransactionIdLength}.");

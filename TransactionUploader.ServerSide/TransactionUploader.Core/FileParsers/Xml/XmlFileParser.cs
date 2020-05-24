@@ -28,13 +28,13 @@ namespace TransactionUploader.Core.FileParsers.Xml
 
 		protected override OperationResult<IReadOnlyCollection<TransactionParserIntermediateDto>> ReadTransactions(Stream file)
 		{
-			XDocument document = XDocument.Load(file);
+			XElement rootElement = XElement.Load(file);
 
 			var transactions = new List<TransactionParserIntermediateDto>();
-			foreach (XElement transactionElement in document.Descendants("Transaction"))
+			foreach (XElement transactionElement in rootElement.Descendants("Transaction"))
 			{
 				string id = transactionElement.Attribute("id")?.Value.Trim();
-				if (id == null)
+				if ( id == null)
 				{
 					return OperationResult.Failure<IReadOnlyCollection<TransactionParserIntermediateDto>>("Transaction Id is missing.");
 				}
