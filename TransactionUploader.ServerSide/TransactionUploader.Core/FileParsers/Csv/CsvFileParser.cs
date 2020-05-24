@@ -4,9 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using CsvHelper;
-using TransactionUploader.Core.Contracts.Dto;
+using TransactionUploader.Common;
 using TransactionUploader.Core.CurrencySymbols;
-using TransactionUploader.Core.Extensibility.Dto;
 
 namespace TransactionUploader.Core.FileParsers.Csv
 {
@@ -43,7 +42,7 @@ namespace TransactionUploader.Core.FileParsers.Csv
 			}
 			catch (Exception)
 			{
-				return OperationResult.Failure<IReadOnlyCollection<TransactionParserIntermediateDto>>("Failed to parse .csv file");
+				return OperationResult.Failure<IReadOnlyCollection<TransactionParserIntermediateDto>>("Error while parsing .csv file.");
 			}
 		}
 

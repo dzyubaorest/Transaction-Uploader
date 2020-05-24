@@ -1,12 +1,12 @@
 using System;
 
-namespace TransactionUploader.WebApi
+namespace TransactionUploader.Common
 {
 	public class TransactionFilter
 	{
 		public string CurrencyCode { get; set; }
 
-		public string Status { get; set; }
+		public TransactionStatus Status { get; set; }
 
 		public DateTime? StartDate { get; set; }
 

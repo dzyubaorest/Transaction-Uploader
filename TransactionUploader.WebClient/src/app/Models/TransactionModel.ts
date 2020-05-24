@@ -1,6 +1,6 @@
 export interface TransactionModel {
-    amount: number;
-    currencyCode: string;
-    transactionDate: Date;
+    id: string;
+    payment: string;
+    date: Date;
     status: string;
 }

@@ -28,7 +28,7 @@ export class TransactionListComponent implements OnInit {
   startDateFilter: Date;
   endDateFilter: Date;
 
-  displayedColumns = ['amount', 'currencyCode', 'status', 'transactionDate'];
+  displayedColumns = ['id', 'payment', 'status', 'date'];
 
   dataSource = new MatTableDataSource([]);
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -42,7 +42,6 @@ export class TransactionListComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
   }
 
   search(): void {
@@ -52,11 +51,15 @@ export class TransactionListComponent implements OnInit {
     let endDate: Date | null = this.dateFilterIsChecked ? this.endDateFilter : null;
 
     this.transactionRepository.getTransactions(currency, status, startDate, endDate)
-      .subscribe(values => this.dataSource = new MatTableDataSource(values));
+      .subscribe(values => {
+        this.dataSource = new MatTableDataSource(values);
+        this.dataSource.paginator = this.paginator;
+      });
   }
 
   onFileComplete() {
     this.isUploadingRunning = false;
+    this.search();
   }
 
   onUploadStart(){

@@ -1,10 +1,10 @@
 ﻿using System.IO;
 
-namespace TransactionUploader.Core.Extensibility.Dto
+namespace TransactionUploader.Common
 {
-	public class FileDto
+	public class File
 	{
-		public FileDto(MemoryStream data, string name)
+		public File(MemoryStream data, string name)
 		{
 			Data = data;
 			Name = name;

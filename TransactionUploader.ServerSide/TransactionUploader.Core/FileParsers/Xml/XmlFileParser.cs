@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using TransactionUploader.Core.Contracts.Dto;
+using TransactionUploader.Common;
 using TransactionUploader.Core.CurrencySymbols;
-using TransactionUploader.Core.Extensibility.Dto;
 
 namespace TransactionUploader.Core.FileParsers.Xml
 {
@@ -37,19 +36,19 @@ namespace TransactionUploader.Core.FileParsers.Xml
 				string id = transactionElement.Attribute("id")?.Value.Trim();
 				if (id == null)
 				{
-					return OperationResult.Failure<IReadOnlyCollection<TransactionParserIntermediateDto>>("Transaction Id is missing");
+					return OperationResult.Failure<IReadOnlyCollection<TransactionParserIntermediateDto>>("Transaction Id is missing.");
 				}
 
 				string date = transactionElement.Element("TransactionDate")?.Value.Trim();
 				if (date == null)
 				{
-					return OperationResult.Failure<IReadOnlyCollection<TransactionParserIntermediateDto>>("TransactionDate is missing");
+					return OperationResult.Failure<IReadOnlyCollection<TransactionParserIntermediateDto>>("TransactionDate is missing.");
 				}
 
 				string status = transactionElement.Element("Status")?.Value.Trim();
 				if (status == null)
 				{
-					return OperationResult.Failure<IReadOnlyCollection<TransactionParserIntermediateDto>>("TransactionDate is missing");
+					return OperationResult.Failure<IReadOnlyCollection<TransactionParserIntermediateDto>>("Status is missing.");
 				}
 
 
@@ -70,19 +69,19 @@ namespace TransactionUploader.Core.FileParsers.Xml
 			var paymentDetailsElement = parentElement.Element("PaymentDetails");
 			if (paymentDetailsElement == null)
 			{
-				return OperationResult.Failure<(string amount, string currencyCode)>("PaymentDetails element is missing");
+				return OperationResult.Failure<(string amount, string currencyCode)>("PaymentDetails element is missing.");
 			}
 
 			var amount = paymentDetailsElement.Element("Amount")?.Value.Trim();
 			if (amount == null)
 			{
-				return OperationResult.Failure<(string amount, string currencyCode)>("Amount element is missing");
+				return OperationResult.Failure<(string amount, string currencyCode)>("Amount element is missing.");
 			}
 
 			var currencyCode = paymentDetailsElement.Element("CurrencyCode")?.Value.Trim();
 			if (currencyCode == null)
 			{
-				return OperationResult.Failure<(string amount, string currencyCode)>("CurrencyCode element is missing");
+				return OperationResult.Failure<(string amount, string currencyCode)>("CurrencyCode element is missing.");
 			}
 
 

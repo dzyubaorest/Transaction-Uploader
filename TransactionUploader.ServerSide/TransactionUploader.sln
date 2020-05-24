@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionUploader.Core", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionUploader.Core.Extensibility", "TransactionUploader.Core.Extensibility\TransactionUploader.Core.Extensibility.csproj", "{6AB28898-0951-4939-8221-47BF719C5378}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionUploader.Module", "TransactionUploader.Module\TransactionUploader.Module.csproj", "{B0BE1B96-3065-4E63-9372-7612E5BB64DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransactionUploader.Module", "TransactionUploader.Module\TransactionUploader.Module.csproj", "{B0BE1B96-3065-4E63-9372-7612E5BB64DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionUploader.Infrastructure", "TransactionUploader.Infrastructure\TransactionUploader.Infrastructure.csproj", "{B06E7643-A866-4388-B60C-DD249B231F4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionUploader.Infrastructure.Extensibility", "TransactionUploader.Infrastructure.Extensibility\TransactionUploader.Infrastructure.Extensibility.csproj", "{935CFFE1-0217-475C-BF39-B032D40935F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionUploader.Common", "TransactionUploader.Common\TransactionUploader.Common.csproj", "{D15E7E9D-6C25-4C8F-9E20-45ABA08E555C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{B0BE1B96-3065-4E63-9372-7612E5BB64DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0BE1B96-3065-4E63-9372-7612E5BB64DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0BE1B96-3065-4E63-9372-7612E5BB64DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B06E7643-A866-4388-B60C-DD249B231F4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B06E7643-A866-4388-B60C-DD249B231F4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B06E7643-A866-4388-B60C-DD249B231F4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B06E7643-A866-4388-B60C-DD249B231F4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{935CFFE1-0217-475C-BF39-B032D40935F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{935CFFE1-0217-475C-BF39-B032D40935F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{935CFFE1-0217-475C-BF39-B032D40935F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{935CFFE1-0217-475C-BF39-B032D40935F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D15E7E9D-6C25-4C8F-9E20-45ABA08E555C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D15E7E9D-6C25-4C8F-9E20-45ABA08E555C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D15E7E9D-6C25-4C8F-9E20-45ABA08E555C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D15E7E9D-6C25-4C8F-9E20-45ABA08E555C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

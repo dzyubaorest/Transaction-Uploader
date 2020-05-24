@@ -2,9 +2,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { catchError, last, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { HttpClient, HttpRequest, HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEventType, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+
+import { OperationResult, OperationResultStatus } from "../Models/OperationResult";
+import { ApiUrl } from "../Environment";
 
 @Component({
   selector: 'app-transaction-upload',
@@ -26,7 +29,7 @@ export class TransactionUploadComponent implements OnInit {
   /** Name used in form which will be sent in HTTP request. */
   @Input() param = 'file';
   /** Target URL for file uploading. */
-  @Input() target = 'https://localhost:44359/api/transaction/post-file';
+  @Input() target = `${ApiUrl}/api/transaction/file`;
   /** File extension that accepted, same as 'accept' of <input type="file" />. 
       By the default, it's set to 'image/*'. */
   @Input() accept = '.csv,.xml';
@@ -57,13 +60,8 @@ export class TransactionUploadComponent implements OnInit {
     fileUpload.onchange = () => {
       for (let index = 0; index < fileUpload.files.length; index++) {
         const file = fileUpload.files[index];
+
         const bytesInMb: number = 1000000;
-
-        // if (file.size == 0) {
-        //   this.addSnackBarMessage("Upload of file: '" + file.name + "'  has failed: file must not be empty", "red-toaster", 2000);
-        //   continue;
-        // }
-
         if (file.size > bytesInMb) {
           this.addSnackBarMessage("Upload of file: '" + file.name + "'  has failed: file`s size must be up to 1 mb.", "red-toaster", 2000);
           continue;
@@ -104,22 +102,27 @@ export class TransactionUploadComponent implements OnInit {
         }
       }),
       catchError((error: HttpErrorResponse) => {
+        let fileUploadFailedMessage : string = `${file.data.name} upload failed.`;
+        
+        let errorMessageFromServer = error.error.message;
+        let message: string = errorMessageFromServer ? errorMessageFromServer : fileUploadFailedMessage;
+        this.addSnackBarMessage(message, "red-toaster");
+
         this.removeFileFromArray(file);
         file.inProgress = false;
-        this.addSnackBarMessage("Upload of file: '" + file.data.name + "'  has failed.", "red-toaster");
         this.complete.emit();
-        return of(`${file.data.name} upload failed.`);
+
+        return of(fileUploadFailedMessage);
       })
     )
       .subscribe(
-        (event: any) => {
-          if (event && event.hasOwnProperty('body') && event.body.hasOwnProperty('status')) {
-            let message: string = event.body.message;
-            let style: string = event.body.status == "Success" ? "green-toaster" : "red-toaster";
-            this.addSnackBarMessage(message, style);
-
-            this.removeFileFromArray(file);
-          }
+        (event: HttpResponse<OperationResult>) => {
+          if (event && event.body) {
+              let style: string = event.body.status == OperationResultStatus.Success ? "green-toaster" : "red-toaster";
+              this.addSnackBarMessage(event.body.message, style);
+  
+              this.removeFileFromArray(file);
+            }
         }
       );
   }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using TransactionUploader.Core.Contracts.Dto;
-using TransactionUploader.Core.Extensibility.Dto;
+using TransactionUploader.Common;
 
 namespace TransactionUploader.Core.FileParsers
 {
@@ -9,6 +8,6 @@ namespace TransactionUploader.Core.FileParsers
 	{
 		bool CanHandle(string fileName);
 
-		OperationResult<IReadOnlyCollection<TransactionDto>> Parse(Stream file);
+		OperationResult<IReadOnlyCollection<Transaction>> Parse(Stream file);
 	} 
 }

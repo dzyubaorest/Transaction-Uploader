@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using TransactionUploader.Core.Contracts.Dto;
+using TransactionUploader.Common;
 using TransactionUploader.Core.CurrencySymbols;
-using TransactionUploader.Core.Extensibility.Dto;
 
 namespace TransactionUploader.Core.FileParsers
 {
@@ -28,7 +27,7 @@ namespace TransactionUploader.Core.FileParsers
 			return fileName.EndsWith(SupportedFileExtension);
 		}
 
-		public OperationResult<IReadOnlyCollection<TransactionDto>> Parse(Stream file)
+		public OperationResult<IReadOnlyCollection<Transaction>> Parse(Stream file)
 		{
 			OperationResult<IReadOnlyCollection<TransactionParserIntermediateDto>> transactionsOperationResult = ReadTransactions(file);
 			if (transactionsOperationResult.Status == OperationResultStatus.Failure)
@@ -36,17 +35,22 @@ namespace TransactionUploader.Core.FileParsers
 				return GetFailureResult(transactionsOperationResult.Message);
 			}
 
-			var transactions = new List<TransactionDto>();
+			var transactions = new List<Transaction>();
 			foreach (TransactionParserIntermediateDto transactionFromFile in transactionsOperationResult.Data)
 			{
+				if (transactionFromFile.Id.Length >= Constants.MaxTransactionIdLength)
+				{
+					return GetFailureResult($"TransactionId length must not be more than {Constants.MaxTransactionIdLength}.");
+				}
+
 				if (!decimal.TryParse(transactionFromFile.Amount, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal amount))
 				{
-					return GetFailureResult($"Amount field is invalid : {transactionFromFile.Amount}");
+					return GetFailureResult($"Amount field is invalid : {transactionFromFile.Amount}.");
 				}
 
 				if (!_currencySymbolCache.Exists(transactionFromFile.CurrencyCode))
 				{
-					return GetFailureResult($"Invalid Currency Code : {transactionFromFile.CurrencyCode}");
+					return GetFailureResult($"Invalid Currency Code : {transactionFromFile.CurrencyCode}.");
 				}
 
 				if (!DateTime.TryParseExact(
@@ -55,15 +59,15 @@ namespace TransactionUploader.Core.FileParsers
 					CultureInfo.InvariantCulture,
 					DateTimeStyles.None, out DateTime date))
 				{
-					return GetFailureResult($"Unsupported DateTime format: {transactionFromFile.TransactionDate}");
+					return GetFailureResult($"Unsupported DateTime format: {transactionFromFile.TransactionDate}.");
 				}
 
 				if (!StatusMappings.TryGetValue(transactionFromFile.Status, out TransactionStatus status))
 				{
-					return GetFailureResult($"Unsupported status: {transactionFromFile.Status}");
+					return GetFailureResult($"Unsupported status: {transactionFromFile.Status}.");
 				}
 
-				var transaction = new TransactionDto(
+				var transaction = new Transaction(
 					transactionFromFile.Id,
 					amount,
 					transactionFromFile.CurrencyCode,
@@ -72,12 +76,12 @@ namespace TransactionUploader.Core.FileParsers
 				transactions.Add(transaction);
 			}
 
-			return OperationResult.Success<IReadOnlyCollection<TransactionDto>>(transactions);
+			return OperationResult.Success<IReadOnlyCollection<Transaction>>(transactions);
 		}
 
 		protected abstract OperationResult<IReadOnlyCollection<TransactionParserIntermediateDto>> ReadTransactions(Stream file);
 
-		private OperationResult<IReadOnlyCollection<TransactionDto>> GetFailureResult(string message) =>
-			OperationResult.Failure<IReadOnlyCollection<TransactionDto>>(message);
+		private OperationResult<IReadOnlyCollection<Transaction>> GetFailureResult(string message) =>
+			OperationResult.Failure<IReadOnlyCollection<Transaction>>(message);
 	}
 }

@@ -2,10 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError  } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { TransactionModel } from "../Models/TransactionModel";
+import { ApiUrl } from "../Environment";
 
 export class TransactionRepository {
-
-  private baseUrl: string = "https://localhost:44359/";
   constructor(private httpClient: HttpClient) { }
 
   public getTransactions(
@@ -31,7 +30,7 @@ export class TransactionRepository {
       params = params.set('endDate', newDate.toUTCString());
     }
 
-    return this.httpClient.get<TransactionModel[]>(this.baseUrl + "api/transaction", { params }).
+    return this.httpClient.get<TransactionModel[]>(`${ApiUrl}/api/transaction`, { params }).
       pipe(
         map((data: TransactionModel[]) => {
           return data;

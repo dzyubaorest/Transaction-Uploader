@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TransactionUploader.Core.Contracts.Dto;
+using TransactionUploader.Common;
 using TransactionUploader.Core.Extensibility;
-using TransactionUploader.Core.Extensibility.Dto;
 using TransactionUploader.WebApi.Models;
 
 namespace TransactionUploader.WebApi.Controllers
@@ -15,44 +14,34 @@ namespace TransactionUploader.WebApi.Controllers
 	[Route("api/transaction")]
 	public class TransactionApiController : ControllerBase
 	{
-		private readonly IFileUploader _fileUploader;
+		private readonly ITransactionUploader _transactionUploader;
+		private readonly ITransactionProvider _transactionProvider;
 
-		public TransactionApiController(IFileUploader fileUploader)
+		public TransactionApiController(ITransactionUploader transactionUploader, ITransactionProvider transactionProvider)
 		{
-			_fileUploader = fileUploader;
+			_transactionUploader = transactionUploader;
+			_transactionProvider = transactionProvider;
 		}
 
 		[HttpGet]
-		public IEnumerable<Transaction> Get([FromQuery]TransactionFilter filter)
+		public async Task<IReadOnlyCollection<TransactionModel>> Get([FromQuery]TransactionFilter filter)
 		{
-			if (filter.StartDate == null && filter.Status == null && filter.CurrencyCode == null)
-			{
-				return Transactions.TransactionList;
-			}
-
-			return Transactions.TransactionList.Where(transaction =>
-			(filter.CurrencyCode == null || transaction.CurrencyCode == filter.CurrencyCode) &&
-			(filter.Status == null || transaction.Status == filter.Status) &&
-			(filter.StartDate == null || transaction.Date >= filter.StartDate.Value) &&
-			(filter.EndDate == null || transaction.Date <= filter.EndDate.Value));
+			IReadOnlyCollection<Transaction> transactions = await _transactionProvider.GetTransactionsAsync(filter);
+			return transactions.Select(transaction => new TransactionModel(transaction)).ToList();
 		}
 
-		[HttpPost("post-file")]
+		[HttpPost("file")]
 		public async Task<IActionResult> PostFile([FromForm] IFormFile file)
 		{
-			await using (MemoryStream memoryStream = new MemoryStream())
-			{
-				await file.CopyToAsync(memoryStream);
-				memoryStream.Seek(0, SeekOrigin.Begin);
-				OperationResult operationResult = _fileUploader.Upload(new FileDto(memoryStream, file.FileName));
-				Response response = new Response(operationResult, file.Name);
+			await using MemoryStream memoryStream = new MemoryStream();
+			await file.CopyToAsync(memoryStream);
+			memoryStream.Seek(0, SeekOrigin.Begin);
 
-				if (operationResult.Status == OperationResultStatus.Success)
-				{
-					return Ok(response);
-				}
-				return BadRequest(response);
-			}
+			OperationResult operationResult = await _transactionUploader.UploadAsync(new Common.File(memoryStream, file.FileName));
+
+			return operationResult.Status == OperationResultStatus.Success ?
+				(IActionResult)Ok(operationResult) :
+				BadRequest(operationResult);
 		}
 	}
 }

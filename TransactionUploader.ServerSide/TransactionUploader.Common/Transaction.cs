@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace TransactionUploader.Core.Contracts.Dto
+namespace TransactionUploader.Common
 {
-	public class TransactionDto
+	public class Transaction
 	{
-		public TransactionDto(
+		public Transaction(
 			string id,
 			decimal amount,
 			string currencyCode,
@@ -27,14 +27,5 @@ namespace TransactionUploader.Core.Contracts.Dto
 		public DateTime Date { get; }
 
 		public TransactionStatus Status { get; }
-	}
-
-	public enum TransactionStatus
-	{
-		Approved = 1,
-
-		Rejected,
-
-		Done
 	}
 }

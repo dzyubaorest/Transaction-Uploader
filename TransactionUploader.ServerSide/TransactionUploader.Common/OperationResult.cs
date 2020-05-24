@@ -1,4 +1,4 @@
-﻿namespace TransactionUploader.Core.Extensibility.Dto
+﻿namespace TransactionUploader.Common
 {
 	public class OperationResult<T> : OperationResult
 	{
