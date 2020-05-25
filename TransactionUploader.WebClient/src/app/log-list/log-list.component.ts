@@ -15,7 +15,7 @@ export class LogListComponent implements OnInit {
   private logRepository: LogRepository;
 
   isLoading: boolean;
-  displayedColumns = ['status', 'message', 'file'];
+  displayedColumns = ['message', 'file'];
   dataSource = new MatTableDataSource([]);
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

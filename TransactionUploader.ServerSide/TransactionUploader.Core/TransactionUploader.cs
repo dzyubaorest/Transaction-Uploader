@@ -39,6 +39,7 @@ namespace TransactionUploader.Core
 			{
 				file.Data.Seek(0, SeekOrigin.Begin);
 				await _logRepository.AddErrorLogAsync(file.Name, transactions.Message, file.Data);
+
 				return OperationResult.Failure($"[{file.Name}]: {transactions.Message}");
 			}
 

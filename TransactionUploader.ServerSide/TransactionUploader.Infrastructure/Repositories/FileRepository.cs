@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +20,8 @@ namespace TransactionUploader.Infrastructure.Repositories
 
 		public async Task<string> GetFileNameAsync(int fileId)
 		{
-			var file = await _transactionDbContext.Files.FindAsync(fileId);
-			return file.FileName;
+			var fileName = await _transactionDbContext.Files.Where(file => file.Id == fileId).Select(file => file.FileName).SingleAsync();
+			return fileName;
 		}
 
 		public async Task<OperationResult<MemoryStream>> GetFileContentAsync(int fileId)

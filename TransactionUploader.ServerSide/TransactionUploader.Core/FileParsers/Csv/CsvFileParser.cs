@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using CsvHelper;
 using TransactionUploader.Common;
 using TransactionUploader.Core.CurrencySymbols;
@@ -30,7 +31,7 @@ namespace TransactionUploader.Core.FileParsers.Csv
 
 		protected override OperationResult<IReadOnlyCollection<TransactionParserIntermediateDto>> ReadTransactions(Stream file)
 		{
-			using StreamReader streamReader = new StreamReader(file);
+			using StreamReader streamReader = new StreamReader(file, Encoding.UTF8, true, 1024, true);
 			using CsvReader csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
 			try
 			{

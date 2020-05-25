@@ -1,32 +1,31 @@
 <div class="example-container mat-elevation-z8">
 
     <div class="spinner-container spinner-center" *ngIf="isLoading">
-      <mat-spinner></mat-spinner>Loading logs...
+        <mat-spinner></mat-spinner>Loading logs...
     </div>
-  
+
     <mat-table #table [dataSource]="dataSource" *ngIf="!isLoading">
-  
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-        <mat-cell *matCellDef="let element"> Error </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="message">
-        <mat-header-cell *matHeaderCellDef> Message </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.message}} </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="file">
-        <mat-header-cell *matHeaderCellDef> Download file </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <a [href]="getFileUrl(element)">Download file</a>
-        </mat-cell>
-      </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        <ng-container matColumnDef="message" >
+            <mat-header-cell *matHeaderCellDef > Message </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.message}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="file">
+            <mat-header-cell *matHeaderCellDef> Download file </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <a [href]="getFileUrl(element)">
+                    <button mat-button>
+                        <mat-icon>arrow_downward</mat-icon>
+                    </button>
+                </a>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-  
+
     <mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
-  
-  </div>
+
+</div>
