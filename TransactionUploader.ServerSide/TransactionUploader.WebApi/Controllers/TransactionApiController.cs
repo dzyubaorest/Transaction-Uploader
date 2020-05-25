@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,9 +25,9 @@ namespace TransactionUploader.WebApi.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IReadOnlyCollection<TransactionModel>> Get([FromQuery]TransactionFilter filter)
+		public async Task<IReadOnlyCollection<TransactionModel>> Get([FromQuery]TransactionFilterModel filter)
 		{
-			IReadOnlyCollection<Transaction> transactions = await _transactionProvider.GetTransactionsAsync(filter);
+			IReadOnlyCollection<Transaction> transactions = await _transactionProvider.GetTransactionsAsync(Convert(filter));
 			return transactions.Select(transaction => new TransactionModel(transaction)).ToList();
 		}
 
@@ -43,5 +44,12 @@ namespace TransactionUploader.WebApi.Controllers
 				(IActionResult)Ok(operationResult) :
 				BadRequest(operationResult);
 		}
+
+		private static TransactionFilter Convert(TransactionFilterModel filterModel) =>
+			new TransactionFilter(
+				filterModel.CurrencyCode,
+				string.IsNullOrEmpty(filterModel.Status) ? (TransactionStatus?)null : (TransactionStatus)Enum.Parse(typeof(TransactionStatus), filterModel.Status),
+				filterModel.StartDate,
+				filterModel.EndDate);
 	}
 }

@@ -23,6 +23,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
@@ -59,6 +60,7 @@ import { LogListComponent } from './log-list/log-list.component';
     MatProgressSpinnerModule,
     MatRadioModule,
     MatCheckboxModule,
+    MatSelectModule,
     MatTableModule,
     MatCardModule,
     FormsModule,

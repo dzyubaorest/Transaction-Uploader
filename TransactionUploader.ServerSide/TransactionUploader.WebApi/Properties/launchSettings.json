@@ -7,22 +7,21 @@
 		"sslPort": 57601
 	}
   },
-  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
+	"IIS Express": {
+		"commandName": "Project",
+		"launchBrowser": true,
+		"environmentVariables": {
+			"ASPNETCORE_ENVIRONMENT": "Development"
+		}
+	},
 	"TransactionUploader.WebApi": {
 		"commandName": "Project",
 		"launchBrowser": true,
 		"environmentVariables": {
 			"ASPNETCORE_ENVIRONMENT": "Development"
 		},
-		"applicationUrl": "https://localhost:57601;"
+		"applicationUrl": "https://localhost:57601"
 	}
   }
 }

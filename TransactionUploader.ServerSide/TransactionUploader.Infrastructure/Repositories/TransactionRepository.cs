@@ -47,10 +47,10 @@ namespace TransactionUploader.Infrastructure.Repositories
 		{
 			List<TransactionDb> dbTransactions =
 				await _transactionDbContext.Transactions.Where(transaction => 
-						(transactionFilter.CurrencyCode == null || transaction.CurrencyCode == transactionFilter.CurrencyCode) && 
-						(transactionFilter.Status == 0 || transaction.Status == transactionFilter.Status) && 
-						(transactionFilter.StartDate == null || transaction.Date >= transactionFilter.StartDate.Value) && 
-						(transactionFilter.EndDate == null || transaction.Date <= transactionFilter.EndDate.Value))
+						(string.IsNullOrEmpty(transactionFilter.CurrencyCode) || transaction.CurrencyCode == transactionFilter.CurrencyCode) && 
+						(!transactionFilter.Status.HasValue || transaction.Status == transactionFilter.Status.Value) && 
+						(!transactionFilter.StartDate.HasValue || transaction.Date >= transactionFilter.StartDate.Value) && 
+						(!transactionFilter.EndDate.HasValue|| transaction.Date <= transactionFilter.EndDate.Value))
 					.ToListAsync();
 
 			return dbTransactions.Select(Convert).ToList();
