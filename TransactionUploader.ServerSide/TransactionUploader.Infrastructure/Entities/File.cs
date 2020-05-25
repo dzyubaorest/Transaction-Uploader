@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TransactionUploader.Infrastructure.Entities
 {
@@ -10,7 +9,6 @@ namespace TransactionUploader.Infrastructure.Entities
 
 		public string FileName { get; set; }
 
-		[NotMapped]
 		public byte[] Content { get; set; }
 	}
 }
