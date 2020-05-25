@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
-import { TransactionModel } from '../Models/TransactionModel';
 import { TransactionRepository } from "../Repositories/TransactionRepository";
 
 @Component({

@@ -11,11 +11,13 @@ namespace TransactionUploader.Core
 	{
 		public static void Register(IServiceCollection services)
 		{
-			services.AddScoped<ITransactionUploader, TransactionUploader>();
-			services.AddScoped<ITransactionProvider, TransactionProvider>();
 			services.AddScoped<IFileParser, XmlFileParser>();
 			services.AddScoped<IFileParser, CsvFileParser>();
 			services.AddSingleton<ICurrencySymbolCache, CurrencySymbolCache>();
+			services.AddScoped<ITransactionUploader, TransactionUploader>();
+			services.AddScoped<ITransactionProvider, TransactionProvider>();
+			services.AddScoped<IFileProvider, FileProvider>();
+			services.AddScoped<ILogProvider, LogProvider>();
 		}
 	}
 }

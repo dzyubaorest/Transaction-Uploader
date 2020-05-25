@@ -14,6 +14,8 @@ namespace TransactionUploader.Infrastructure
 				options.UseSqlServer(configuration.GetConnectionString("SqlServer")));
 
 			services.AddScoped<ITransactionRepository, TransactionRepository>();
+			services.AddScoped<ILogRepository, LogRepository>();
+			services.AddScoped<IFileRepository, FileRepository>();
 		}
 	}
 }

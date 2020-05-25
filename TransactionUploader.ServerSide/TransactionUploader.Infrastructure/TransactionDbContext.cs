@@ -10,5 +10,9 @@ namespace TransactionUploader.Infrastructure
 		}
 
 		public DbSet<Transaction> Transactions { get; set; }
+
+		public DbSet<Log> Logs { get; set; }
+
+		public DbSet<File> Files { get; set; }
 	}
 }
