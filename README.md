@@ -18,5 +18,5 @@
 * Wait until app is running (There will be message in console like: "Server is listening on localhost:4200, open your browser on http://localhost:4200/")
 ```
 
-## Open browser on http://localhost:4200/
-## There are several test input files with transaction in folder InputData which can be uploaded using "Upload Transaction" button.
+### Open browser on http://localhost:4200/
+There are several test input files with transaction in folder InputData which can be uploaded using "Upload Transaction" button.
