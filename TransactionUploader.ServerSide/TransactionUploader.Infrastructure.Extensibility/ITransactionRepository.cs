@@ -6,7 +6,7 @@ namespace TransactionUploader.Infrastructure.Extensibility
 {
 	public interface ITransactionRepository
 	{
-		Task InsertOrUpdateTransactionsAsync(IReadOnlyCollection<Transaction> transactions);
+		void InsertOrUpdateTransactions(IReadOnlyCollection<Transaction> transactions);
 
 		Task<IReadOnlyCollection<Transaction>> GetTransactionsAsync(TransactionFilter transactionFilter);
 	}

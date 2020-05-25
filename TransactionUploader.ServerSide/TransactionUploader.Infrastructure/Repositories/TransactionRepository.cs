@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -10,32 +11,36 @@ namespace TransactionUploader.Infrastructure.Repositories
 {
 	internal class TransactionRepository : ITransactionRepository
 	{
+		private static readonly Object _lockObject = new Object();
+
 		private readonly TransactionDbContext _transactionDbContext;
 		public TransactionRepository(TransactionDbContext transactionDbContext)
 		{
 			_transactionDbContext = transactionDbContext;
 		}
 
-		public async Task InsertOrUpdateTransactionsAsync(IReadOnlyCollection<Transaction> transactions)
+		public  void InsertOrUpdateTransactions(IReadOnlyCollection<Transaction> transactions)
 		{
-
-			var transactionsToInsert = new List<TransactionDb>();
-			foreach (var transaction in transactions)
+			lock (_lockObject)
 			{
-				var existingTransaction = _transactionDbContext.Transactions.Find(transaction.Id);
-				if (existingTransaction == null)
+				var transactionsToInsert = new List<TransactionDb>();
+				foreach (var transaction in transactions)
 				{
-					transactionsToInsert.Add(Convert(transaction));
+					var existingTransaction = _transactionDbContext.Transactions.Find(transaction.Id);
+					if (existingTransaction == null)
+					{
+						transactionsToInsert.Add(Convert(transaction));
+					}
+					else
+					{
+						_transactionDbContext.Entry(existingTransaction).CurrentValues.SetValues(transaction);
+					}
 				}
-				else
-				{
-					_transactionDbContext.Entry(existingTransaction).CurrentValues.SetValues(transaction);
-				}
+
+				_transactionDbContext.Transactions.AddRange(transactionsToInsert);
+
+				 _transactionDbContext.SaveChanges();
 			}
-
-			_transactionDbContext.Transactions.AddRange(transactionsToInsert);
-
-			await _transactionDbContext.SaveChangesAsync();
 		}
 
 		public async Task<IReadOnlyCollection<Transaction>> GetTransactionsAsync(TransactionFilter transactionFilter)

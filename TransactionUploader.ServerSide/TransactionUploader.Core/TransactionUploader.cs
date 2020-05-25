@@ -42,8 +42,8 @@ namespace TransactionUploader.Core
 
 				return OperationResult.Failure($"[{file.Name}]: {transactions.Message}");
 			}
-
-			await _transactionRepository.InsertOrUpdateTransactionsAsync(transactions.Data);
+			
+			_transactionRepository.InsertOrUpdateTransactions(transactions.Data);
 
 			return OperationResult.Success($"[{file.Name}] has been uploaded.");
 		}
